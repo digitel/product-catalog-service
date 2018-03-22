@@ -6,10 +6,11 @@ import java.util.List;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.tmf.openapi.catalog.domain.common.AgreementRef;
 import org.tmf.openapi.catalog.domain.common.CategoryRef;
 import org.tmf.openapi.catalog.domain.common.ChannelRef;
 import org.tmf.openapi.catalog.domain.common.LifeCycleStatus;
@@ -19,12 +20,23 @@ import org.tmf.openapi.catalog.domain.common.ProductSpecificationRef;
 import org.tmf.openapi.catalog.domain.common.ResourceCandidateRef;
 import org.tmf.openapi.catalog.domain.common.SLARef;
 import org.tmf.openapi.catalog.domain.common.ServiceCandidateRef;
+import org.tmf.openapi.catalog.validator.ValidProductOffering;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.querydsl.core.annotations.QueryEntity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
+@ValidProductOffering
+@Document
+@JsonFilter("productOfferingFilter")
+@EqualsAndHashCode(of = "id")
+@ToString(includeFieldNames = true)
+@QueryEntity
 public class ProductOffering {
 
 	@Id
@@ -42,8 +54,6 @@ public class ProductOffering {
 
 	private String description;
 
-	private boolean isBundle;
-
 	private LifeCycleStatus lifecycleStatus;
 
 	@JsonProperty("@type")
@@ -57,12 +67,17 @@ public class ProductOffering {
 
 	private Boolean isSellable;
 
-	@NotNull
 	@Valid
 	private TimePeriod validFor;
 
 	@Valid
 	private List<CategoryRef> category;
+
+	private Boolean isBundle;
+
+	private List<BundledProductReference> bundledProductOffering;
+
+	private ProductSpecificationRef productSpecification;
 
 	private List<ChannelRef> channel;
 
@@ -76,11 +91,9 @@ public class ProductOffering {
 
 	private List<PlaceRef> place;
 
-	private List<BundledProductReference> bundledProductOffering;
-
 	private SLARef serviceLevelAgreement;
 
-	private ProductSpecificationRef productSpecification;
+	private List<AgreementRef> agreement;
 
 	private List<ProductOfferingTerm> productOfferingTerm;
 
