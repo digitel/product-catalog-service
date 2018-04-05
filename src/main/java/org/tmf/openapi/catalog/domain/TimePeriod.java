@@ -19,11 +19,17 @@ import lombok.ToString;
 
 public class TimePeriod {
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_WITH_TIME_PATTERN)
-	@NotNull(message = "Start Date is mandatory")
-	private Date startDateTime;
+	// @JsonFormat(shape = JsonFormat.Shape.STRING, pattern =
+	// DATE_WITH_TIME_PATTERN)
+	// @NotNull(message = "Start Date is mandatory")
+	// private Date startDateTime;
+	//
+	// @JsonFormat(shape = JsonFormat.Shape.STRING, pattern =
+	// DATE_WITH_TIME_PATTERN)
+	// private Date endDateTime;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_WITH_TIME_PATTERN)
-	private Date endDateTime;
+	private String startDateTime;
+
+	private String endDateTime;
 
 }

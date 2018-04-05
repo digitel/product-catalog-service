@@ -161,14 +161,19 @@ public class ProductOfferingService {
 
 	private void setDefaultValues(ProductOffering productOffering) {
 
-		if (null == productOffering.getIsSellable()) {
+//		if (null == productOffering.getIsSellable()) {
+//
+//			productOffering.setIsSellable(true);
+//		}
 
-			productOffering.setIsSellable(true);
-		}
+//		if (null == productOffering.getType() || productOffering.getType().trim().equals("")) {
+//
+//			productOffering.setType("ProductOffering");
+//		}
+		
+		if (null == productOffering.getLifecycleStatus() || productOffering.getLifecycleStatus().trim().equals("")) {
 
-		if (null == productOffering.getType() || productOffering.getType().trim().equals("")) {
-
-			productOffering.setType("ProductOffering");
+			productOffering.setLifecycleStatus("Active");
 		}
 
 	}

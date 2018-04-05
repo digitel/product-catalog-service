@@ -16,8 +16,10 @@ public class TimePeriodValidator implements ConstraintValidator<ValidTimePeriod,
 		if (null == timePeriod.getEndDateTime()) {
 			return true;
 		}
+		
+		return true;
 
-		return timePeriod.getStartDateTime().before(timePeriod.getEndDateTime());
+//		return timePeriod.getStartDateTime().before(timePeriod.getEndDateTime());
 	}
 
 }

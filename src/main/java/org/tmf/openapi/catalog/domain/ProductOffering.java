@@ -13,7 +13,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.tmf.openapi.catalog.domain.common.AgreementRef;
 import org.tmf.openapi.catalog.domain.common.CategoryRef;
 import org.tmf.openapi.catalog.domain.common.ChannelRef;
-import org.tmf.openapi.catalog.domain.common.LifeCycleStatus;
 import org.tmf.openapi.catalog.domain.common.MarketSegmentRef;
 import org.tmf.openapi.catalog.domain.common.PlaceRef;
 import org.tmf.openapi.catalog.domain.common.ProductSpecificationRef;
@@ -54,7 +53,9 @@ public class ProductOffering {
 
 	private String description;
 
-	private LifeCycleStatus lifecycleStatus;
+//	private LifeCycleStatus lifecycleStatus;
+	
+	private String lifecycleStatus;
 
 	@JsonProperty("@type")
 	private String type;

@@ -3,9 +3,11 @@ package org.tmf.openapi.catalog.web;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.tmf.openapi.catalog.common.ObjectMapper.mapObjectWithExcludeFilter;
 
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.tmf.openapi.catalog.domain.ProductOffering;
 import org.tmf.openapi.catalog.service.ProductOfferingService;
 
@@ -60,7 +65,15 @@ public class ProductOfferingController {
 			@RequestBody @Valid ProductOffering productOffering) throws URISyntaxException {
 
 		productOffering = productOfferingService.createProductOffering(productOffering);
-		return ResponseEntity.created(populateHref(productOffering).getHref())
+
+		linkTo(ProductOfferingController.class).toUri().relativize(populateHref(productOffering).getHref());
+		getCurrentRequest().getServletPath();
+
+		// return ResponseEntity.created(populateHref(productOffering).getHref())
+		// .body(mapObjectWithExcludeFilter(productOffering, null,
+		// "productOfferingFilter"));
+
+		return ResponseEntity.created(new URI("/catalogManagement/productOffering/" + productOffering.getId()))
 				.body(mapObjectWithExcludeFilter(productOffering, null, "productOfferingFilter"));
 	}
 
@@ -91,6 +104,14 @@ public class ProductOfferingController {
 		productOfferingService.deleteProductOffering(id);
 		return ResponseEntity.noContent().build();
 
+	}
+
+	@SuppressWarnings("null")
+	private static HttpServletRequest getCurrentRequest() {
+
+		RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+		HttpServletRequest servletRequest = ((ServletRequestAttributes) requestAttributes).getRequest();
+		return servletRequest;
 	}
 
 	private ProductOffering populateHref(ProductOffering productOffering) {

@@ -13,15 +13,25 @@ public class ProductOfferingValidator implements ConstraintValidator<ValidProduc
 		if (null == productOffering)
 			return true;
 
-		if (null != productOffering.getIsBundle() && productOffering.getIsBundle()
-				&& (null == productOffering.getBundledProductOffering()
-						|| 0 == productOffering.getBundledProductOffering().size())) {
+		if (null == productOffering.getIsBundle())
 			return false;
 
-		} else if (null == productOffering.getProductSpecification()) {
+		if (true == productOffering.getIsBundle()) {
 
-			return false;
+			if (null == productOffering.getBundledProductOffering()
+					|| 0 == productOffering.getBundledProductOffering().size()) {
+
+				return false;
+			}
 		}
+
+		if (false == productOffering.getIsBundle()) {
+
+			if (null == productOffering.getProductSpecification()) {
+				return false;
+			}
+		}
+
 		return true;
 	}
 }

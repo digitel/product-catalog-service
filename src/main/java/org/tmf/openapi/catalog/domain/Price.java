@@ -9,7 +9,9 @@ public class Price {
 
 	private float percentage;
 
-	private Money taxIncludedAmount;
+	private String taxIncludedAmount;
 
 	private float taxRate;
+	
+	private String currencyCode;
 }

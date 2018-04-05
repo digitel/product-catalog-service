@@ -61,7 +61,9 @@ public class ProductOfferingPrice {
 
 	private Date lastUpdate;
 
-	private LifeCycleStatus lifecycleStatus;
+//	private LifeCycleStatus lifecycleStatus;
+	
+	private String lifecycleStatus;
 
 	private float percentage;
 
